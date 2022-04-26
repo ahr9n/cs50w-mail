@@ -55,6 +55,8 @@ function load_mailbox(mailbox) {
 
                 if (email.read) {
                     item.style.backgroundColor = '#D3D3D3';
+                }else{
+                    item.style.backgroundColor = '#FFFFFF';
                 }
                 item.querySelectorAll('td').forEach(td_tag => {
                     td_tag.addEventListener('click', () => {
@@ -174,6 +176,7 @@ function send_email() {
     fetch('/emails', {
         method: 'POST',
         body: JSON.stringify({
+            sender: document.querySelector('#compose-sender').value,
             recipients: document.querySelector('#compose-recipients').value,
             subject: document.querySelector('#compose-subject').value,
             body: document.querySelector('#compose-body').value
