@@ -1,0 +1,47 @@
+{% extends "mail/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <h2>{{ request.user.email }}</h2>
+
+    <button class="btn btn-sm btn-outline-primary" id="inbox"><span> <i class="fas fa-inbox"></i> </span>Inbox</button>
+    <button class="btn btn-sm btn-outline-primary" id="compose"><span> <i class="fas fa-pen"></i> </span>Compose</button>
+    <button class="btn btn-sm btn-outline-primary" id="sent"><span> <i class="fas fa-paper-plane"></i> </span>Sent</button>
+    <button class="btn btn-sm btn-outline-primary" id="archived"><span> <i class="fas fa-archive"></i> </span>Archived</button>
+    <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}"><span> <i class="fas fa-sign-out-alt"></i> </span>Log Out</a>
+    <hr>
+
+    {# contains the content of an email mailbox #}
+    <div id="emails-view">
+        <div id="heading"></div>
+        <div class="table-responsive">
+            <table class="table">
+                <tbody id="emails-preview"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="email-details"></div>
+
+    {# contains a form where the user can compose a new email #}
+    <div id="compose-view">
+        <h3>New Email</h3>
+        <form id="compose-form">
+            <div class="form-group">
+                From: <input disabled class="form-control" value="{{ request.user.email }}">
+            </div>
+            <div class="form-group">
+                To: <input id="compose-recipients" class="form-control">
+            </div>
+            <div class="form-group">
+                <input class="form-control" id="compose-subject" placeholder="Subject">
+            </div>
+            <textarea class="form-control" id="compose-body" placeholder="Body"></textarea>
+            <input type="submit" class="btn btn-primary" id="send-email"/>
+        </form>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'mail/inbox.js' %}"></script>
+{% endblock %}
